@@ -25,7 +25,7 @@ func formatDate(date string) (string, error) {
     return formattedDate.Format("01/02/2006"), nil
 }
 
-func convertToNumber(num string) (string) {
+func formatNumber(num string) (string) {
     return strings.Replace(num, ",", "", -1)
 }
 
@@ -58,7 +58,7 @@ func processRows(f *excelize.File, cfg Config, endRow int) ([][]string, error) {
             }
             
             if col == "N" || col == "R" {
-                value = convertToNumber(cell)
+                value = formatNumber(cell)
             }
 
             row = append(row, value)
