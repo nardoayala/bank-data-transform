@@ -41,7 +41,9 @@ func processRows(f *excelize.File, cfg Config, endRow int) ([][]string, error) {
     for i := cfg.StartRow; i <= endRow; i++ {
         var row []string
         for _, col := range cfg.Columns {
-            cell, err := f.GetCellValue(cfg.SheetName, fmt.Sprintf("%s%d", col, i))
+            cell, err := f.GetCellValue(
+                cfg.SheetName, fmt.Sprintf("%s%d", col, i),
+            )
             if err != nil {
                 return nil, err
             }
