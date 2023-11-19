@@ -4,7 +4,6 @@ import (
     "fmt"
     "os"
     "strconv"
-    "time"
     "strings"
     "github.com/xuri/excelize/v2"
     "github.com/atotto/clipboard"
@@ -14,15 +13,14 @@ type Config struct {
     SheetName string
     Columns []string
     StartRow int
-    FormattedSheetName string
 }
 
-func formatDate(date string) (string, error) {
-    formattedDate, err := time.Parse("02/01/2006", date)
-    if err != nil {
-        return "", err
-    }
-    return formattedDate.Format("01/02/2006"), nil
+func formatDate(date string) (string) {
+    dateParts := strings.Split(date, "/")
+    formattedDate := strings.Join([]string{
+        dateParts[1], dateParts[0], dateParts[2],
+    }, "/")
+    return formattedDate
 }
 
 func formatNumber(num string) (string) {
@@ -50,11 +48,7 @@ func processRows(f *excelize.File, cfg Config, endRow int) ([][]string, error) {
 
             var value string = cell
             if col == "B" {
-                formattedDate, err := formatDate(cell)
-                if err != nil {
-                    return nil, err
-                }
-                value = formattedDate
+                value = formatDate(cell)
             }
             
             if col == "N" || col == "R" {
@@ -90,7 +84,6 @@ func main() {
         SheetName: "Page 1",
         Columns: []string{"B", "G", "N", "R"},
         StartRow: 25,
-        FormattedSheetName: "Formatted data",
     }
 
     if len(os.Args) < 3 {
