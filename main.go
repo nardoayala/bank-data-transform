@@ -133,9 +133,4 @@ func main() {
         fmt.Println("Error copying to clipboard:", err)
         return
     }
-
-    if err := f.Save(); err != nil {
-        fmt.Println("Error saving file:", err)
-        return
-    }
 }
