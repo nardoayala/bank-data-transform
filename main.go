@@ -51,7 +51,7 @@ func processRows(f *excelize.File, cfg Config, endRow int) ([][]string, error) {
                 value = formatDate(cell)
             }
             
-            if col == "N" || col == "R" {
+            if col == "N" {
                 value = formatNumber(cell)
             }
 
@@ -82,7 +82,7 @@ func formatDataForClipboard(data [][]string) string {
 func main() {
     cfg := Config{
         SheetName: "Page 1",
-        Columns: []string{"B", "G", "N", "R"},
+        Columns: []string{"B", "G", "N"},
         StartRow: 25,
     }
 
